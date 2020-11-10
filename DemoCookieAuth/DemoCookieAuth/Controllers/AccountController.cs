@@ -62,9 +62,10 @@ namespace DemoCookieAuth.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Sid, model.Username),   // probably better to put user ID here
+                new Claim(ClaimTypes.Sid, model.Username),          // probably better to put user ID here
                 new Claim(ClaimTypes.Name, model.Username),
-                new Claim("FullName", "Guest user")          // use real name of your user
+                new Claim("FullName", "Guest user"),                // use real name of your user
+                new Claim("LastCheckOn", $"{DateTime.UtcNow:o}")    // use to detect if the user has changed (blocked etc)
             };
 
             // ******************************
@@ -88,7 +89,7 @@ namespace DemoCookieAuth.Controllers
 
                 authProperties = new AuthenticationProperties
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7),
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
                     IsPersistent = true
                 };
             }

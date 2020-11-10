@@ -31,7 +31,10 @@ namespace DemoCookieAuth
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(15); // default when "remember me" is not clicked
                     options.SlidingExpiration = true;
                     options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
+                    options.EventsType = typeof(CustomCookieAuthenticationEvents);
                 });
+
+            services.AddScoped<CustomCookieAuthenticationEvents>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
