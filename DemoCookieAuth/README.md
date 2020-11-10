@@ -15,14 +15,14 @@ There is no database in the project, these are hard-coded. This is an "empty" MV
 
 ### 2. Read "Startup.cs"
 
-Go ahead and check out [Startup.cs](DemoCookieAuth\Startup.cs). Note the comments marked with "DEMO".
+Go ahead and check out [Startup.cs](DemoCookieAuth/Startup.cs). Note the comments marked with "DEMO".
 
 ### 3. Read "AccountController.cs"
 
-Now read the account controller in [AccountController.cs](DemoCookieAuth\Controllers\AccountController.cs). Also, note the comments.
+Now read the account controller in [AccountController.cs](DemoCookieAuth/Controllers/AccountController.cs). Also, note the comments.
 
 ### 4. Finally take a look at the "CustomCookieAuthenticationEvents.cs"
 
-This [CustomCookieAuthenticationEvents.cs](DemoCookieAuth\CustomCookieAuthenticationEvents.cs) class demonstrates principal verification that is performed on every request. This demo skips the check if the last check was within 5 minutes, but that is optional. Here it is used to demonstrate a way to avoid hitting the DB on every request.
+This [CustomCookieAuthenticationEvents.cs](DemoCookieAuth/CustomCookieAuthenticationEvents.cs) class demonstrates principal verification that is performed on every request. This demo skips the check if the last check was within 5 minutes, but that is optional. Here it is used to demonstrate a way to avoid hitting the DB on every request.
 
 ### 5. Fork and make pull requests if you see something problematic :)
