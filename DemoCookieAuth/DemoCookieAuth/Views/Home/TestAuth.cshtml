@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Testing Authorization";
+    var fullName = User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+}
+
+<div class="text-center">
+    <h1 class="display-4">You are authorized!</h1>
+    <h2>Hi @fullName.</h2>
+    <p/>
+    <p>You @(User.IsInRole("qa_role") ? "are" : "are NOT") in "qa_role"</p>
+    <p>You @(User.IsInRole("dev_role") ? "are" : "are NOT") in "dev_role"</p>
+</div>
