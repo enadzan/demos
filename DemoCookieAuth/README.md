@@ -6,7 +6,7 @@ This is a demonstration of role-based authorization with cookies, without using 
 
 ### 1. Open the solution in Visual Studio 2019
 
-Build and run to see if everything is OK. Try the "Test Auth" link from the top menu. It will redirect you to the login form. Use the following credentials to log in:
+Build and run to see if everything is OK. Try the "Test Auth" link from the top menu. It will redirect you to the login form because [TestAuth action i HomeController](DemoCookieAuth/Controllers/HomeController.cs#L24) has the `Authorize` attribute with roles. Use the following credentials to log in:
 
 - Username: `guest`
 - Password: `guest`
@@ -19,7 +19,7 @@ Go ahead and check out [Startup.cs](DemoCookieAuth/Startup.cs). Note the comment
 
 ### 3. Read "AccountController.cs"
 
-Now read the account controller in [AccountController.cs](DemoCookieAuth/Controllers/AccountController.cs). Also, note the comments.
+Now read the account controller in [AccountController.cs](DemoCookieAuth/Controllers/AccountController.cs). Also, note the comments. Try commenting out one of the roles [in the part where roles are added to claims](DemoCookieAuth/Controllers/AccountController.cs#L71), and see what you get on "Test Auth" page.
 
 ### 4. Finally take a look at the "CustomCookieAuthenticationEvents.cs"
 
