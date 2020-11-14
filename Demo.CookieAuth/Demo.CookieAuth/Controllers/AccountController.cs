@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
-using DemoCookieAuth.Models;
+using Demo.CookieAuth.Models;
 
-namespace DemoCookieAuth.Controllers
+namespace Demo.CookieAuth.Controllers
 {
     public class AccountController : Controller
     {

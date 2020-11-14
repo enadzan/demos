@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 
-using DemoCookieAuth.Models;
+using Demo.CookieAuth.Models;
 
-namespace DemoCookieAuth.Controllers
+namespace Demo.CookieAuth.Controllers
 {
     public class HomeController : Controller
     {

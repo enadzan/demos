@@ -1,6 +1,6 @@
 using System;
 
-namespace DemoCookieAuth.Models
+namespace Demo.CookieAuth.Models
 {
     public class ErrorViewModel
     {

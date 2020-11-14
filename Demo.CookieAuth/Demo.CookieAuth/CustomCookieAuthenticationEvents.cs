@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace DemoCookieAuth
+namespace Demo.CookieAuth
 {
     public class CustomCookieAuthenticationEvents: CookieAuthenticationEvents
     {
