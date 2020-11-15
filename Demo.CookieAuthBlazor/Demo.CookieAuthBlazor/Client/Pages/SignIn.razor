@@ -1,0 +1,79 @@
+﻿@page "/sign-in"
+@attribute [AllowAnonymous]
+
+@inject NavigationManager Navigation
+@inject CustomAuthStateProvider AuthStateProvider
+@inject ApiClient ApiClient
+
+@using Microsoft.AspNetCore.WebUtilities
+
+@using Demo.CookieAuthBlazor.Shared
+@using Demo.CookieAuthBlazor.Client.Services
+
+<h1>Sign in</h1>
+
+<EditForm style="max-width: 20rem" Model="@_dtoSignIn" OnValidSubmit="@Authenticate">
+    <DataAnnotationsValidator />
+    <CustomValidator @ref="_validator" />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <InputText class="form-control" id="username" @bind-Value="_dtoSignIn.Username" />
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <InputText type="password" class="form-control" id="password" @bind-Value="_dtoSignIn.Password" />
+    </div>
+    <div class="form-check">
+        <InputCheckbox class="form-check-input" id="remember_me" @bind-Value="_dtoSignIn.RememberMe" />
+        <label for="remember_me">Remember Me</label>
+    </div>
+
+    <button class="btn btn-primary" type="submit" disabled="@_authenticating">Sign In</button>
+</EditForm>
+
+@code {
+    // ReSharper disable FieldCanBeMadeReadOnly.Local
+    private CustomValidator _validator = new CustomValidator();
+    private DtoSignIn _dtoSignIn = new DtoSignIn();
+    // ReSharper restore FieldCanBeMadeReadOnly.Local
+
+    private bool _authenticating;
+
+    private string _returnUrl = "";
+
+    protected override void OnInitialized()
+    {
+        var query = new Uri(Navigation.Uri).Query;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+        {
+            _returnUrl = value;
+        }
+    }
+
+    protected async Task Authenticate()
+    {
+        _authenticating = true;
+        try
+        {
+            _validator.ClearErrors();
+
+            var dtoUser = await ApiClient.AccountSignIn(_dtoSignIn);
+
+            AuthStateProvider.Set(dtoUser);
+
+            Navigation.NavigateTo(_returnUrl);
+        }
+        catch (ModelValidationException ex)
+        {
+            _validator.DisplayErrors(ex.ModelErrors);
+        }
+        finally
+        {
+            _authenticating = false;
+        }
+    }
+
+}

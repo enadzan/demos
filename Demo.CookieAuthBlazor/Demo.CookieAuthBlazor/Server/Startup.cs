@@ -1,11 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace Demo.CookieAuthBlazor.Server
 {
@@ -22,9 +21,22 @@ namespace Demo.CookieAuthBlazor.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // ******************************************
+            // DEMO: Added cookie authentication services
+            // ******************************************
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(15); // default when "remember me" is not clicked
+                    options.SlidingExpiration = true;
+                    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+                    options.EventsType = typeof(CustomCookieAuthenticationEvents);
+                });
+
+            services.AddScoped<CustomCookieAuthenticationEvents>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,10 +60,16 @@ namespace Demo.CookieAuthBlazor.Server
 
             app.UseRouting();
 
+            // *****************************************************
+            // DEMO: Added UseAuthentication BEFORE UseAuthorization
+            // *****************************************************
+            app.UseAuthentication();
+            app.UseAuthorization(); 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization(); // set all controllers to require authorization
                 endpoints.MapFallbackToFile("index.html");
             });
         }

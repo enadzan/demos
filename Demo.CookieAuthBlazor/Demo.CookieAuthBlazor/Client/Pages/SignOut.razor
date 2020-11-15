@@ -1,0 +1,17 @@
+﻿@page "/sign-out"
+@inject ApiClient ApiClient
+@inject CustomAuthStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+
+@using Demo.CookieAuthBlazor.Client.Services
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ApiClient.AccountSignOut();
+
+        AuthStateProvider.Clear();
+        Navigation.NavigateTo("");
+    }
+}
