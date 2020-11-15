@@ -3,4 +3,4 @@ This repository contains demonstration projects for .NET Core. It's primarily us
 
 ## The list of projects:
 - [Simple Cookie Authentication in ASP.NET Core](Demo.CookieAuth)
-- ...
+- [Cookie Authentication in Blazor WebAssembly](Demo.CookieAuthBlazor)
